@@ -1,0 +1,42 @@
+<p>hinv works! {{ name }}</p>
+using ng functions
+<br><br>
+<button (click)="addroom()">Add a room</button>
+<br><br>
+<button (click)="delroom()">Remove a room</button>
+<br><br>
+<table *ngIf="roomlist.length > 0">
+  <tbody>
+    <tr>
+      <th>Sno.</th>
+      <th>room number</th>
+      <th>price</th>
+      <th>type</th>
+      <th>checkin</th>
+      <th>Selection</th>
+    </tr>
+    <tr
+      [ngStyle]="{ 'background-color': e ? 'red' : 'blue' }"
+      *ngFor="let item of roomlist; let i = index; let e = even"
+    >
+      <td>
+        {{ i + 1 }}
+      </td>
+      <td>
+        {{ item.num }}
+      </td>
+      <td>
+        {{ item.price }}
+      </td>
+      <td>
+        {{ item.type }}
+      </td>
+      <td>
+        {{ item.checkin}}
+      </td>
+      <td>
+        <button class="btn btn-primary" (click)="roomSelect(item)">Select this room</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
