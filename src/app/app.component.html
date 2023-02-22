@@ -7,8 +7,10 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="title-text">This a demo application of angular </div>
-  <app-hinv [roomlist] = "roomdata"
-  (roomSelected)="roomshow($event)"></app-hinv>
+  <app-header [AvailableRooms] = "availableRooms" (AddRoom)="AddRoom($event)"> Hotel Transylvania</app-header>
+  <hr>
+  <app-content [roomsOccupied]="roomsOccupied" (RemoveRoom)="RemoveRoom($event)"></app-content>
+  <hr>
+  <app-footer></app-footer>
 </body>
 </html>

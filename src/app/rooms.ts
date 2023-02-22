@@ -1,6 +1,6 @@
-export interface rooms{
-    num: number,
-    type: string,
-    price: number,
-    checkin: Date
+export interface Rooms{
+    Roomno: number,
+    Name: string,
+    Beds: number,
+    Checkin: Date
 }

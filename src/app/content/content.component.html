@@ -1,0 +1,25 @@
+<h2>
+    Occupied Rooms
+</h2>
+<h1 *ngIf="roomsOccupied == undefined || roomsOccupied?.length == 0" > No Rooms Occupied </h1>
+<table *ngIf="roomsOccupied.length > 0">
+    <tbody>
+        <tr>
+            <th>Sno.</th>
+            <th>Room no.</th>
+            <th>Name</th>
+            <th>Beds</th>
+            <th>Check in.</th>
+            <th>Checkout</th>
+        </tr>
+        <hr>
+        <tr [ngStyle]="{'color':e?'red':'blue'}" *ngFor = "let item of roomsOccupied; let i =  index; let e = even">
+            <td>{{i}}</td>
+            <td>{{item.Roomno}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Beds}}</td>
+            <td>{{item.Checkin | date}}</td>
+            <td><button (click) = "removeRoom(item)">Checkout</button> </td>
+        </tr>
+    </tbody>
+</table>

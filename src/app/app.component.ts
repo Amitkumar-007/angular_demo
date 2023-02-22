@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { rooms } from './rooms';
+import { OccupiedService } from './content/Services/occupied.service';
+import { Rooms } from './Rooms';
 
 @Component({
   selector: 'app-root',
@@ -7,26 +8,33 @@ import { rooms } from './rooms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'hotelinv';
-  available = 3
-  roomdata : rooms[] = []
-  ngOnInit() {
-    this.roomdata = [{
-      num: 3,
-      type: "luxury",
-      checkin: new Date,
-      price: 4000
-    },{
-      num: 4,
-      type: "simple",
-      checkin: new Date(2020,1,2),
-      price: 10000
-    }];
-  }
+    availableRooms: number = 10;
+    totalRooms: number = 10;
+    roomsOccupied: Rooms[] = []
+    //OccupiedService = new OccupiedService();
 
-  roomshow(room:rooms){
-    console.log(room);
-  }
+    //this will create or provide you with the service
+    constructor(private occupiedService: OccupiedService){ 
+    }
+
+    ngOnInit() {
+      this.roomsOccupied = this.occupiedService.getOccupancy();
+    }
+
+    AddRoom(room: Rooms){
+      this.roomsOccupied = [...this.roomsOccupied,{
+        Roomno: this.roomsOccupied.length + 1,
+        Name: "other",
+        Beds: 3,
+        Checkin: new Date(2020,1, this.roomsOccupied.length + 1)
+      }]
+      console.log("room added");
+    }
+
+    RemoveRoom(room: Rooms){
+      this.roomsOccupied = this.roomsOccupied.filter(r => r.Roomno!== room.Roomno);
+      console.log("room removed");
+    }
 
 
 }
