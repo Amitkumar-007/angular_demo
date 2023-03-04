@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { AppConfig } from 'src/app/AppConfig/appconfig.interface';
-import { APP_SERVICE_CONFIG } from 'src/app/AppConfig/appconfig.service';
+import { LocalStorageToken } from 'src/app/localstoragetoken';
+import { HttpClient } from '@angular/common/http';
 import { Rooms } from 'src/app/Rooms';
 
 @Injectable({
@@ -19,12 +19,12 @@ export class OccupiedService {
     Beds: 3,
     Checkin: new Date(2020,3,2)
   }]
-  constructor(@Inject(APP_SERVICE_CONFIG) private config:AppConfig) {
-    console.log(config)
+  constructor( private http: HttpClient) {
    }
 
    getOccupancy(){
-    return this.OccupiedRooms;
+    // return this.OccupiedRooms;
+    return this.http.get<Rooms[]>('http://localhost:3000/data');
    }
 
 }

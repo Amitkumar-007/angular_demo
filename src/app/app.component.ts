@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { OccupiedService } from './content/Services/occupied.service';
+import { LocalStorageToken } from './localstoragetoken';
 import { Rooms } from './Rooms';
 
 @Component({
@@ -14,11 +15,18 @@ export class AppComponent {
     //OccupiedService = new OccupiedService();
 
     //this will create or provide you with the service
-    constructor(private occupiedService: OccupiedService){ 
+    constructor(private occupiedService: OccupiedService , 
+      @Inject(LocalStorageToken) private localStorage: any){ 
     }
 
     ngOnInit() {
-      this.roomsOccupied = this.occupiedService.getOccupancy();
+      this.occupiedService.getOccupancy().subscribe(Rooms => {
+        console.log('ggg',Rooms);
+          this.roomsOccupied = Rooms;
+      })
+      // this.roomsOccupied = this.occupiedService.getOccupancy();
+      this.localStorage.setItem('roomsOccupied', this.roomsOccupied);
+      console.log(this.localStorage)
     }
 
     AddRoom(room: Rooms){
